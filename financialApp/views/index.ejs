@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>My Budget Tracker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      line-height: 1.6;
+    }
+
+    .balance-card {
+      padding: 20px;
+      border-radius: 8px;
+      background: #f4f4f4;
+      text-align: center;
+    }
+
+    .income {
+      color: green;
+    }
+
+    .expense {
+      color: red;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    input,
+    select,
+    button {
+      padding: 10px;
+    }
+
+    .transaction-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="balance-card">
+    <h2>Current Saldo</h2>
+    <h1 class="<%= balance >= 0 ? 'income' : 'expense' %>">
+      $<%= balance.toFixed(2) %>
+    </h1>
+  </div>
+
+  <form action="/add" method="POST">
+    <input type="text" name="title" placeholder="What did you buy/earn?" required>
+    <input type="number" name="amount" placeholder="Amount (e.g. 50.00)" step="0.01" required>
+
+    <select name="type">
+      <option value="income">Income (+)</option>
+      <option value="expense">Expense (-)</option>
+    </select>
+
+    <select name="category">
+      <option value="Food">Food</option>
+      <option value="Rent">Rent</option>
+      <option value="Salary">Salary</option>
+      <option value="Entertainment">Entertainment</option>
+    </select>
+
+    <button type="submit" style="background: #333; color: white; border: none; cursor: pointer;">Add Transaction</button>
+  </form>
+
+  <hr>
+
+  <h3>History</h3>
+  <% if (transactions.length===0) { %>
+    <p>No transactions yet. Start by adding one above!</p>
+    <% } else { %>
+      <% transactions.reverse().forEach(t=> { %>
+        <div class="transaction-item">
+          <span><strong>
+              <%= t.title %>
+            </strong> (<%= t.category %>)</span>
+          <span class="<%= t.type === 'income' ? 'income' : 'expense' %>">
+            <%= t.type==='income' ? '+' : '-' %>$<%= t.
