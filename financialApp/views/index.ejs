@@ -74,7 +74,8 @@
       <option value="Entertainment">Entertainment</option>
     </select>
 
-    <button type="submit" style="background: #333; color: white; border: none; cursor: pointer;">Add Transaction</button>
+    <button type="submit" style="background: #333; color: white; border: none; cursor: pointer;">Add
+      Transaction</button>
   </form>
 
   <hr>
@@ -89,4 +90,15 @@
               <%= t.title %>
             </strong> (<%= t.category %>)</span>
           <span class="<%= t.type === 'income' ? 'income' : 'expense' %>">
-            <%= t.type==='income' ? '+' : '-' %>$<%= t.
+            <%= t.type==='income' ? '+' : '-' %>$<%= t.amount %>
+          </span>
+          <form action="/delete/<%= t._id %>" method="POST" style="margin: 0;">
+            <button type="submit" style="color: red;"">X</button>
+          </form>
+        </div>
+        <% }) %>
+          <% } %>
+
+</body>
+
+</html>

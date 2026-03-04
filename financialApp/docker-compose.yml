@@ -4,12 +4,12 @@ services:
     ports:
       - "27017:27017"
 
-  web-app:
+  app:
     build: .
     ports:
       - "3000:3000"
     volumes:
-      - .:/app
-      - /app/node_modules
+      - .:/financialApp
+      - /financialApp/node_modules
     depends_on:
       - mongodb
