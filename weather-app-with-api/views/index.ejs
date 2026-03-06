@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Explorer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #f0f8ff;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      width: 60%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* The Weather Card Styles */
+    .weather-card {
+      margin-top: 30px;
+      padding: 20px;
+      background: #e0f7fa;
+      border-radius: 10px;
+    }
+
+    .temp {
+      font-size: 48px;
+      font-weight: bold;
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .desc {
+      text-transform: capitalize;
+      font-size: 20px;
+      color: #666;
+    }
+
+    .error {
+      color: red;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>🌍 Weather Explorer</h1>
+    <form action="/weather" method="POST">
+      <input type="text" name="city" placeholder="Enter a city..." required>
+      <button type="submit">Search</button>
+    </form>
+
+    <% if (error) { %>
+      <div class="error">
+        <%= error %>
+      </div>
+      <% } %>
+        <% if (weatherData) { %>
+          <div class="weather-card">
+            <h2>
+              <%= weatherData.name %>, <%= weatherData.sys.country %>
+            </h2>
+            <img src="https://openweathermap.org/img/wn/<%= weatherData.weather[0].icon %>@2x.png" alt="Weather icon">
+            <div class="temp">
+              <%= Math.round(weatherData.main.temp) %>°C
+            </div>
+            <div class="desc">
+              <%= weatherData.weather[0].description %>
+            </div>
+            <p>Humidity: <%= weatherData.main.humidity %>% | Wind: <%= weatherData.wind.speed %> m/s</p>
+          </div>
+          <% } %>
+  </div>
+</body>
+
+</html>
