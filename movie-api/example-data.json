@@ -1,14 +1,27 @@
 [
   {
     "title": "Nasza Legia",
-    "year": 2022
+    "year": 2022,
+    "genre": "horror"
   },
   {
     "title": "Arcydzieło",
-    "year": 2008
+    "year": 2008,
+    "genre": "drama"
   },
   {
     "title": "Starwars",
-    "year": 1999
+    "year": 1999,
+    "genre": "sci-fi"
+  },
+  {
+    "title": "Spider Man",
+    "year": 1999,
+    "genre": "sci-fi"
+  },
+  {
+    "title": "Nocny agent",
+    "year": 2022,
+    "genre": "drama"
   }
 ]

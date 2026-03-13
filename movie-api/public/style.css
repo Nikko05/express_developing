@@ -1,0 +1,101 @@
+:root {
+  --primary: #3498db;
+  --secondary: #2ecc71;
+  --dark: #2c3e50;
+  --light: #f4f7f6;
+  --white: #ffffff;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background-color: var(--light);
+  color: var(--dark);
+}
+
+/* Navigation */
+nav {
+  background: var(--dark);
+  padding: 1rem 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.logo {
+  font-size: 1.5rem;
+}
+
+/* Layout Containers */
+.container {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+/* Forms & Cards */
+.card {
+  background: var(--white);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.btn-block {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background: var(--primary);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-block.secondary {
+  background: var(--secondary);
+}
+
+.btn-block:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Movie Grid */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.movie-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border-top: 4px solid var(--primary);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.foot-note {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+}
