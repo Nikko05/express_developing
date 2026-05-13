@@ -1,9 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const Movie = require('./models/Movie');
+const User = require('./models/User');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,15 +20,19 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use((req, res, next) => {
+  res.locals.user = req.session.userName || null;
+  next();
+});
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({
+  store: MongoStore.create({              // save in mongo db
     mongoUrl: process.env.MONGO_URI
   }),
-  cookie: { maxAge: 1000 * 60 * 60 * 24 }
+  cookie: { maxAge: 1000 * 60 * 60 * 24 } // one day
 }));
 
 app.get('/', async (req, res) => {
@@ -56,11 +62,19 @@ app.post('/users/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const foundUser = findOne({ email });
+    const foundUser = await User.findOne({ email });
+
+    // if user not found
+    if (!foundUser) return res.status(400).send('User not found.');
 
     const isMatch = await bcrypt.compare(password, foundUser.password);
 
-    if (!isMatch) res.status(400).send('Email or password is invalid.');
+    //if comparison is false => send error
+    if (!isMatch) return res.status(400).send('Email or password is invalid.');
+
+    // saving to session
+    req.session.userId = foundUser._id;
+    req.session.userName = foundUser.name;
 
     res.redirect('/');
   } catch (err) {
@@ -74,6 +88,7 @@ app.post('/users/register', async (req, res) => {
 
     const newUser = new User({ name, email, password });
 
+    // save to db
     await newUser.save();
 
     res.redirect('/login');
